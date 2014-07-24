@@ -84,5 +84,20 @@ class CoreController extends Controller
         $this->sendResponse('site_header', $viewData);
     }
 
+    /**
+     * search - Search Saigon Data
+     * 
+     * @access public
+     * @return void
+     */
+    public function search()
+    {
+        $viewData = new ViewData();
+        $viewData->search = trim($this->getParam('search'));
+        $viewData->deployment = $this->getParam('deployment');
+        $viewData->searchResults = SaigonSearch::search($viewData->deployment, $viewData->search);
+        $this->sendResponse('search', $viewData);
+    }
+    
 }
 
