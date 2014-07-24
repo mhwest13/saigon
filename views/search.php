@@ -1,7 +1,7 @@
 <?php
 //
 // Copyright (c) 2014, Zynga Inc.
-// https://github-ca.corp.zynga.com/zcloud-tools/saigon
+// https://github.com/mhwest13
 // Author: Leo Nishio
 // License: BSD 2-Clause
 //
