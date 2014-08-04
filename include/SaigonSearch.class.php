@@ -108,6 +108,8 @@ class SaigonSearch {
 		$vKeys = array_shift(NagRedis::keys(md5('deployment:'.$deployment).":".$results['version'].":*", true));
 		sort($vKeys);
 		foreach ($vKeys as $vKey) {
+			// skip buildoutput key
+			if (preg_match('/buildoutput/', $vKey)) continue;
 			if (preg_match("/$search/", $vKey)) {
 				if (isset($results['versioned']['key_name'])) {
 					array_push($results['versioned']['key_name'], $vKey);
@@ -149,6 +151,10 @@ class SaigonSearch {
 				$match = true;
 			}
 			$keyValue = NagRedis::hget($hashKey, $hashKeyKey);
+			// decode base64 encoded key values
+			if ($hashKeyKey == 'command_line' || $hashKeyKey == 'cmd_line' || $hashKeyKey == 'location' || $hashKeyKey == 'file' || preg_match('/^USER|^ARG/', $hashKeyKey)) {
+				$keyValue = '<pre>'.base64_decode($keyValue).'</pre>';
+			}
 			if (preg_match("/$search/", $keyValue)) {
 				if (isset($results['key_value'])) {
 					array_push($results['key_value'], "$hashKeyKey = $keyValue");

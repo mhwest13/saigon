@@ -44,6 +44,13 @@ function runSearch() {
 		alert("A search term must be entered");
 	}
 }
+function inputKeyUp(e) {
+	e.which = e.which || e.keyCode;
+	if(e.which == 13) {
+		runSearch();
+		return false;
+	}
+}
 </script>
 
 <body>
@@ -68,7 +75,7 @@ if ((isset($viewData->deployments)) && (!empty($viewData->deployments))) {
 <!-- Search -->
 <div id="deployment-encapsulate" style="width:98%;height:45px;overflow:auto;position:absolute;top:49;left:5;">
     <div class="divCacGroup admin_box admin_box_blue admin_border_black">
-    Search: <input value="" size="30" maxlength="2048" id="deploysearch" name="deploysearch" type="text"> <input value="Submit" style="font-size:12px;padding:2px;" type="submit" onClick="runSearch()"/>
+    Search: <input value="" size="30" maxlength="2048" id="deploysearch" name="deploysearch" type="text" onkeyup="inputKeyUp(event);" > <input value="Submit" style="font-size:12px;padding:2px;" type="submit" onClick="runSearch()"/>
     </div>
 </div>
 <!-- Break Point -->

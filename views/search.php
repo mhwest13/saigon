@@ -92,8 +92,15 @@ li { float:left;padding:1; }
 				if (isset($matches['nonversioned']['key_value']) && count($matches['nonversioned']['key_value'])) {
 					echo "<ul>\n";
 					foreach ($matches['nonversioned']['key_value'] as $nvKey => $nvVal) {
-						foreach ($nvVal['key_value'] as $parmVal) {
-							echo "<li>Value match in <b>".preg_replace($replaceMe, '', $nvKey).": $parmVal</b></li>\n";
+						if (isset($nvVal['key_name'])) {
+							foreach ($nvVal['key_name'] as $parmVal) {
+								echo "<li>Key Name match in <b>".preg_replace($replaceMe, '', $nvKey).": $parmVal</b></li>\n";
+							}
+						}
+						if (isset($nvVal['key_value'])) {
+							foreach ($nvVal['key_value'] as $parmVal) {
+								echo "<li>Value match in <b>".preg_replace($replaceMe, '', $nvKey).": $parmVal</b></li>\n";
+							}
 						}
 					}
 					echo "</ul>\n";
@@ -128,6 +135,23 @@ li { float:left;padding:1; }
 				if (isset($matches['versioned']['key_value']) && count($matches['versioned']['key_value'])) {
 					echo "<ul>\n";
 					foreach ($matches['versioned']['key_value'] as $vKey => $vVal) {
+						if (isset($vVal['key_name'])) {
+							$stripped = preg_replace($replaceMe, '', $vKey);
+							list($cmd) = explode(':', $stripped);
+							if (isset($cmdControllerMap[$cmd])) $cmd = $cmdControllerMap[$cmd];
+							if ($cmd != 'testoutput') {
+								$action = 'stage';
+								if (isset($cmdActionMap[$cmd])) $action = $cmdActionMap[$cmd];
+								$link = "<a href=\"action.php?controller=$cmd&action=$action&deployment=$deployment\">$cmd</a>";
+								if ($link != $lastLink) {
+									echo "</ul>$link<ul>\n";
+								}
+								foreach ($vVal['key_name'] as $parmVal) {
+									echo "<li>Key Name match in <b>".$stripped.": $parmVal</b></li>\n";
+								}
+								$lastLink = $link;
+							}
+						}
 						if (isset($vVal['key_value'])) {
 							$stripped = preg_replace($replaceMe, '', $vKey);
 							list($cmd) = explode(':', $stripped);
