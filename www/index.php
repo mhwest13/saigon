@@ -20,7 +20,7 @@ require_once dirname(dirname(__FILE__)).'/conf/saigon.inc.php';
     <frame src="action.php?controller=core&action=getheader" name='head' noresize="noresize" />
     <frameset cols="375,*">
         <frame src='action.php?controller=core&action=input' name='input' noresize="noresize" />
-        <frame name='output' noresize="noresize" />
-    </frameset>
+        <frame src='' id='output' name='output' noresize="noresize" />
+	</frameset>
 </frameset>
 </html>

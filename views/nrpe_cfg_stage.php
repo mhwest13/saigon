@@ -140,11 +140,11 @@ if ((isset($viewData->error)) && (!empty($viewData->error))) {
     </tr><tr>
         <th style="width:25%;text-align:right;">Command Timeout:</th>
         <td style="width:25%;text-align:left;">
-            <input type="text" value="<?php echo $cmdtimeout?>" size="2" maxlength="2" id="cmdtimeout" name="cmdtimeout" />
+            <input type="text" value="<?php echo $cmdtimeout?>" size="3" maxlength="3" id="cmdtimeout" name="cmdtimeout" />
         </td>
         <th style="width:25%;text-align:right;">Connection Timeout:</th>
         <td style="width:25%;text-align:left;">
-            <input type="text" value="<?php echo $conntimeout?>" size="2" maxlength="2" id="conntimeout" name="conntimeout" />
+            <input type="text" value="<?php echo $conntimeout?>" size="3" maxlength="3" id="conntimeout" name="conntimeout" />
         </td>
     </tr><tr>
         <th colspan="1" style="width:25%;text-align:right;">
